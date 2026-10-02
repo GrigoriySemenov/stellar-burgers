@@ -1,5 +1,4 @@
 import type { OrderStatusUIProps } from './type';
-
 export const OrderStatusUI = ({
   textStyle,
   text,

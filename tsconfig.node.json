@@ -7,14 +7,12 @@
     "types": ["vite/client"],
     "skipLibCheck": true,
 
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
 
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -23,5 +21,11 @@
     "noUncheckedSideEffectImports": true,
     "jsx": "react"
   },
-  "include": ["vite.config.ts", "eslint.config.ts", "*.d.ts", ".storybook/*.ts", ".storybook/*.tsx"]
+  "include": [
+    "vite.config.ts",
+    "eslint.config.ts",
+    "*.d.ts",
+    ".storybook/*.ts",
+    ".storybook/*.tsx"
+  ]
 }

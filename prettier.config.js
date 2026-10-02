@@ -1,4 +1,3 @@
-/* @type {import("prettier").Config} */
 const config = {
   endOfLine: 'lf',
   jsxSingleQuote: false,
@@ -9,5 +8,4 @@ const config = {
   trailingComma: 'es5',
   useTabs: false,
 };
-
 export default config;

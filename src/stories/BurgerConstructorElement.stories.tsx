@@ -4,14 +4,11 @@ import { fn } from 'storybook/test';
 import ingredientImage from './assets/ingredient-placeholder.svg';
 
 import type { Meta, StoryObj } from '@storybook/react';
-
 const meta = {
   title: 'Example/BurgerConstructorElement',
   component: BurgerConstructorElementUI,
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   parameters: {
-    // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
   },
   decorators: [
@@ -22,10 +19,8 @@ const meta = {
     ),
   ],
 } satisfies Meta<typeof BurgerConstructorElementUI>;
-
 export default meta;
 type Story = StoryObj<typeof meta>;
-
 export const DefaultElement: Story = {
   args: {
     ingredient: {

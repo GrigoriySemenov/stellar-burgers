@@ -10,7 +10,6 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import unusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-
 export default defineConfig(
   {
     ignores: [
@@ -112,7 +111,7 @@ export default defineConfig(
             'side-effect-style',
             'style',
           ],
-                    internalPattern: [
+          internalPattern: [
             '^/',
             '^@components/',
             '^@contexts/',
@@ -134,7 +133,7 @@ export default defineConfig(
       'react/prop-types': 'off',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'unused-imports/no-unused-imports': 'error',
-      'react-hooks/exhaustive-deps': 'off'
+      'react-hooks/exhaustive-deps': 'off',
     },
     settings: {
       'css-modules': {

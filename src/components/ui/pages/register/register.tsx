@@ -3,79 +3,96 @@ import {
   Button,
   PasswordInput,
 } from '@krgaa/react-developer-burger-ui-components';
-import { Link } from 'react-router-dom';
+import { clsx } from 'clsx';
+import { Link, useLocation } from 'react-router-dom';
 
 import type { RegisterUIProps } from './type';
 
 import styles from '../common.module.css';
-
 export const RegisterUI = ({
   errorText,
   email,
   setEmail,
   handleSubmit,
+  isLoading,
   password,
   setPassword,
   userName,
   setUserName,
-}: RegisterUIProps): React.JSX.Element => (
-  /*
-    Отображение ошибок и валидация форм в "можно лучше"
-  */
-  <main className={styles.container}>
-    <div className={`pt-6 ${styles.wrapCenter}`}>
-      <h3 className="pb-6 text text_type_main-medium">Регистрация</h3>
-      <form className={`pb-15 ${styles.form}`} name="register" onSubmit={handleSubmit}>
-        <>
-          <div className="pb-6">
-            <Input
-              type="text"
-              placeholder="Имя"
-              onChange={(e) => setUserName(e.target.value)}
-              value={userName}
-              name="name"
-              error={false}
-              errorText=""
-              size="default"
-            />
-          </div>
-          <div className="pb-6">
-            <Input
-              type="email"
-              placeholder="E-mail"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              name={'email'}
-              error={false}
-              errorText=""
-              size={'default'}
-            />
-          </div>
-          <div className="pb-6">
-            <PasswordInput
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              name="password"
-            />
-          </div>
-          <div className={`pb-6 ${styles.button}`}>
-            <Button type="primary" size="medium" htmlType="submit">
-              Зарегистрироваться
-            </Button>
-          </div>
-          {errorText && (
-            <p className={`${styles.error} text text_type_main-default pb-6`}>
-              {errorText}
-            </p>
-          )}
-        </>
-      </form>
-      <div className={`${styles.question} text text_type_main-default pb-6`}>
-        Уже зарегистрированы?
-        <Link to="/login" className={`pl-2 ${styles.link}`}>
-          Войти
-        </Link>
+}: RegisterUIProps): React.JSX.Element => {
+  const location = useLocation();
+  return (
+    <main className={styles.container}>
+      <div className={clsx('pt-6', styles.wrapCenter)}>
+        <h3 className="pb-6 text text_type_main-medium">Регистрация</h3>
+        <form
+          className={clsx('pb-15', styles.form)}
+          name="register"
+          onSubmit={handleSubmit}
+        >
+          <>
+            <div className="pb-6">
+              <Input
+                required
+                type="text"
+                placeholder="Имя"
+                onChange={(e) => setUserName(e.target.value)}
+                value={userName}
+                name="name"
+                error={false}
+                errorText=""
+                size="default"
+              />
+            </div>
+            <div className="pb-6">
+              <Input
+                required
+                type="email"
+                placeholder="E-mail"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                name={'email'}
+                error={false}
+                errorText=""
+                size={'default'}
+              />
+            </div>
+            <div className="pb-6">
+              <PasswordInput
+                required
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                name="password"
+              />
+            </div>
+            <div className={clsx('pb-6', styles.button)}>
+              <Button
+                type="primary"
+                size="medium"
+                htmlType="submit"
+                disabled={isLoading}
+              >
+                Зарегистрироваться
+              </Button>
+            </div>
+            {errorText && (
+              <p className={clsx(styles.error, 'text text_type_main-default pb-6')}>
+                {errorText}
+              </p>
+            )}
+          </>
+        </form>
+        <div className={clsx(styles.question, 'text text_type_main-default pb-6')}>
+          Уже зарегистрированы?
+          <Link
+            state={location.state as unknown}
+            to="/login"
+            className={clsx('pl-2', styles.link)}
+          >
+            Войти
+          </Link>
+        </div>
       </div>
-    </div>
-  </main>
-);
+    </main>
+  );
+};

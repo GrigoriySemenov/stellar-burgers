@@ -1,6 +1,6 @@
 import type { ChangeEvent, SyntheticEvent } from 'react';
-
 export type ProfileUIProps = {
+  isLoading?: boolean;
   formValue: {
     name: string;
     email: string;
