@@ -1,17 +1,8 @@
 export function getCookie(name: string): string | undefined {
-  const matches = new RegExp(
-    '(?:^|; )' +
-      // eslint-disable-next-line no-useless-escape
-      name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') +
-      '=([^;]*)'
-  ).exec(document.cookie);
-  return matches ? decodeURIComponent(matches[1]) : undefined;
+  const prefix = `${encodeURIComponent(name)}=`;
+  const cookie = document.cookie.split('; ').find((item) => item.startsWith(prefix));
+  return cookie ? decodeURIComponent(cookie.slice(prefix.length)) : undefined;
 }
-
-/* В тренажере приводится несовсем корректный пример этой функции
- там не задается path и возможна ситуация, когда на разных страницах в cookies
- будут разные токены, поэтому в path нужно задавать корень сайта path: '/' */
-
 export function setCookie(
   name: string,
   value: string,
@@ -21,14 +12,12 @@ export function setCookie(
     path: '/',
     ...props,
   };
-
   let exp = props.expires;
   if (exp && typeof exp === 'number') {
     const d = new Date();
     d.setTime(d.getTime() + exp * 1000);
     exp = props.expires = d;
   }
-
   if (exp && exp instanceof Date) {
     props.expires = exp.toUTCString();
   }
@@ -43,7 +32,6 @@ export function setCookie(
   }
   document.cookie = updatedCookie;
 }
-
 export function deleteCookie(name: string): void {
   setCookie(name, '', { expires: -1 });
 }

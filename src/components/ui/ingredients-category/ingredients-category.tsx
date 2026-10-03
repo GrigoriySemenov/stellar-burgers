@@ -3,7 +3,6 @@ import { BurgerIngredient } from '@components';
 import type { TIngredientsCategoryUIProps } from './type';
 
 import styles from './ingredients-category.module.css';
-
 export const IngredientsCategoryUI = ({
   title,
   titleRef,

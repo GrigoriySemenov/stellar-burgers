@@ -1,16 +1,15 @@
+import { clsx } from 'clsx';
 import { memo } from 'react';
 
 import type { FeedInfoUIProps, HalfColumnProps, TColumnProps } from './type';
 
 import styles from './feed-info.module.css';
-
 export const FeedInfoUI = memo(function FeedInfoUI({
   feed,
   readyOrders,
   pendingOrders,
 }: FeedInfoUIProps): React.JSX.Element {
   const { total, totalToday } = feed;
-
   return (
     <section>
       <div className={styles.columns}>
@@ -22,18 +21,17 @@ export const FeedInfoUI = memo(function FeedInfoUI({
     </section>
   );
 });
-
 const HalfColumn = ({
   orders,
   title,
   textColor,
 }: HalfColumnProps): React.JSX.Element => (
-  <div className={`pr-6 ${styles.column}`}>
-    <h3 className={`text text_type_main-medium ${styles.title}`}>{title}:</h3>
-    <ul className={`pt-6  ${styles.list}`}>
+  <div className={clsx('pr-6', styles.column)}>
+    <h3 className={clsx('text text_type_main-medium', styles.title)}>{title}:</h3>
+    <ul className={clsx('pt-6', styles.list)}>
       {orders.map((item, index) => (
         <li
-          className={`text text_type_digits-default ${styles.list_item}`}
+          className={clsx('text text_type_digits-default', styles.list_item)}
           style={{ color: textColor === 'blue' ? '#00cccc' : '#F2F2F3' }}
           key={index}
         >
@@ -43,10 +41,9 @@ const HalfColumn = ({
     </ul>
   </div>
 );
-
 const Column = ({ title, content }: TColumnProps): React.JSX.Element => (
   <>
-    <h3 className={`pt-15 text text_type_main-medium ${styles.title}`}>{title}:</h3>
-    <p className={`text text_type_digits-large ${styles.content}`}>{content}</p>
+    <h3 className={clsx('pt-15 text text_type_main-medium', styles.title)}>{title}:</h3>
+    <p className={clsx('text text_type_digits-large', styles.content)}>{content}</p>
   </>
 );

@@ -5,23 +5,24 @@ import {
   CurrencyIcon,
 } from '@krgaa/react-developer-burger-ui-components';
 import { Preloader, OrderDetailsUI } from '@ui';
+import { clsx } from 'clsx';
 
 import type { BurgerConstructorUIProps } from './type';
 import type { TConstructorIngredient } from '@utils-types';
 
 import styles from './burger-constructor.module.css';
-
 export const BurgerConstructorUI = ({
   constructorItems,
   orderRequest,
   price,
+  errorText,
   orderModalData,
   onOrderClick,
   closeOrderModal,
 }: BurgerConstructorUIProps): React.JSX.Element => (
   <section className={styles.burger_constructor} data-testid="constructor">
     {constructorItems.bun ? (
-      <div className={`${styles.element} mb-4 mr-4`} data-testid="constructor-bun-1">
+      <div className={clsx(styles.element, 'mb-4 mr-4')} data-testid="constructor-bun-1">
         <ConstructorElement
           type="top"
           isLocked
@@ -32,7 +33,11 @@ export const BurgerConstructorUI = ({
       </div>
     ) : (
       <div
-        className={`${styles.noBuns} ${styles.noBunsTop} ml-8 mb-4 mr-5 text text_type_main-default`}
+        className={clsx(
+          styles.noBuns,
+          styles.noBunsTop,
+          'ml-8 mb-4 mr-5 text text_type_main-default'
+        )}
       >
         Выберите булки
       </div>
@@ -50,13 +55,15 @@ export const BurgerConstructorUI = ({
           )
         )
       ) : (
-        <li className={`${styles.noBuns} ml-8 mb-4 mr-5 text text_type_main-default`}>
+        <li
+          className={clsx(styles.noBuns, 'ml-8 mb-4 mr-5 text text_type_main-default')}
+        >
           Выберите начинку
         </li>
       )}
     </ul>
     {constructorItems.bun ? (
-      <div className={`${styles.element} mt-4 mr-4`} data-testid="constructor-bun-2">
+      <div className={clsx(styles.element, 'mt-4 mr-4')} data-testid="constructor-bun-2">
         <ConstructorElement
           type="bottom"
           isLocked
@@ -67,21 +74,35 @@ export const BurgerConstructorUI = ({
       </div>
     ) : (
       <div
-        className={`${styles.noBuns} ${styles.noBunsBottom} ml-8 mb-4 mr-5 text text_type_main-default`}
+        className={clsx(
+          styles.noBuns,
+          styles.noBunsBottom,
+          'ml-8 mb-4 mr-5 text text_type_main-default'
+        )}
       >
         Выберите булки
       </div>
     )}
-    <div className={`${styles.total} mt-10 mr-4`} data-testid="order-summ">
-      <div className={`${styles.cost} mr-10`}>
-        <p className={`text ${styles.text} mr-2`}>{price}</p>
+    <div className={clsx(styles.total, 'mt-10 mr-4')} data-testid="order-summ">
+      <div className={clsx(styles.cost, 'mr-10')}>
+        <p className={clsx('text', styles.text, 'mr-2')}>{price}</p>
         <CurrencyIcon type="primary" />
       </div>
-      <Button htmlType="button" type="primary" size="large" onClick={onOrderClick}>
+      <Button
+        htmlType="button"
+        type="primary"
+        size="large"
+        onClick={onOrderClick}
+        disabled={orderRequest || !constructorItems.bun}
+      >
         Оформить заказ
       </Button>
     </div>
-    {/* Прелоадер в данном месте в "Можно лучше" */}
+    {errorText && (
+      <p role="alert" className="text text_type_main-default mt-4">
+        {errorText}
+      </p>
+    )}
     {orderRequest && (
       <Modal onClose={closeOrderModal} title={'Оформляем заказ...'}>
         <Preloader />

@@ -1,5 +1,4 @@
 import type { Config } from 'jest';
-
 const config: Config = {
   preset: 'ts-jest',
   testEnvironment: 'node',
@@ -34,11 +33,13 @@ const config: Config = {
     '^@ui-pages/(.*)$': '<rootDir>/src/components/ui/pages/$1',
   },
   transform: {
-    '^.+\\.tsx?$': ['ts-jest', {
-      tsconfig: 'tsconfig.test.json',
-      diagnostics: false,
-    }],
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: 'tsconfig.test.json',
+        diagnostics: true,
+      },
+    ],
   },
 };
-
 export default config;

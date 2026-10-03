@@ -5,7 +5,6 @@ import { memo } from 'react';
 import type { BurgerIngredientsUIProps } from './type';
 
 import styles from './burger-ingredients.module.css';
-
 export const BurgerIngredientsUI = memo(function BurgerIngredientsUI({
   currentTab,
   buns,
