@@ -15,6 +15,7 @@ export const ModalUI = memo(function ModalUI({
       <div
         className={styles.modal}
         role="dialog"
+        data-testid="modal"
         aria-modal="true"
         aria-label={title || 'Заказ оформлен'}
       >

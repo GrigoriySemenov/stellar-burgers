@@ -3,6 +3,24 @@ const config: Config = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   roots: ['<rootDir>/src'],
+  collectCoverageFrom: ['src/services/slices/*.ts', 'src/utils/burger-api.ts'],
+  coverageDirectory: 'coverage',
+  coverageReporters: ['text', 'html', 'lcov'],
+  coverageThreshold: {
+    global: {},
+    './src/services/slices/ingredients.ts': {
+      statements: 100,
+      branches: 100,
+      functions: 100,
+      lines: 100,
+    },
+    './src/services/slices/constructor.ts': {
+      statements: 100,
+      branches: 100,
+      functions: 100,
+      lines: 100,
+    },
+  },
   testMatch: ['**/*.test.ts'],
   moduleNameMapper: {
     '^@api$': '<rootDir>/src/utils/burger-api',
