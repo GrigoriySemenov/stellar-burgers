@@ -141,10 +141,10 @@ test.describe('Модальное окно ингредиента', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
     await ingredientCard(page, bunId).getByRole('link').click();
-    await expect(page.getByRole('dialog', { name: 'Детали ингредиента' })).toBeVisible();
+    await expect(page.getByTestId('modal')).toBeVisible();
   });
   test('показывает данные выбранного ингредиента и его URL', async ({ page }) => {
-    const modal = page.getByRole('dialog', { name: 'Детали ингредиента' });
+    const modal = page.getByTestId('modal');
     await expect(page).toHaveURL(`/ingredients/${bunId}`);
     await expect(
       modal.getByRole('heading', { name: bunName, exact: true })
@@ -159,21 +159,21 @@ test.describe('Модальное окно ингредиента', () => {
   });
   test('закрывается по крестику и возвращает маршрут конструктора', async ({ page }) => {
     await page
-      .getByRole('dialog')
+      .getByTestId('modal')
       .getByRole('button', { name: 'Закрыть', exact: true })
       .click();
-    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(page.getByTestId('modal')).toHaveCount(0);
     await expect(page).toHaveURL('/');
     await expect(page.getByRole('heading', { name: 'Соберите бургер' })).toBeVisible();
   });
   test('закрывается по клику на оверлей', async ({ page }) => {
     await page.getByTestId('modal-overlay').click({ position: { x: 10, y: 10 } });
-    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(page.getByTestId('modal')).toHaveCount(0);
     await expect(page).toHaveURL('/');
   });
   test('закрывается по Escape', async ({ page }) => {
     await page.keyboard.press('Escape');
-    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(page.getByTestId('modal')).toHaveCount(0);
     await expect(page).toHaveURL('/');
   });
 });
@@ -214,7 +214,7 @@ test.describe('Оформление заказа', () => {
     expect(await request.headerValue('authorization')).toBe(accessToken);
     expect((await feedResponse).ok()).toBe(true);
     expect((await historyResponse).ok()).toBe(true);
-    const modal = page.getByRole('dialog', { name: 'Заказ оформлен' });
+    const modal = page.getByTestId('modal');
     await expect(modal).toBeVisible();
     await expect(modal.getByTestId('order-number')).toHaveText('123456');
     await expectEmptyConstructor(page);
@@ -225,7 +225,7 @@ test.describe('Оформление заказа', () => {
       ingredientCard(page, fillingId).getByText('1', { exact: true })
     ).toHaveCount(0);
     await modal.getByRole('button', { name: 'Закрыть', exact: true }).click();
-    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(page.getByTestId('modal')).toHaveCount(0);
     await expect(page.getByTestId('order-number')).toHaveCount(0);
   });
   test('при ошибке заказа сохраняет бургер и показывает сообщение', async ({ page }) => {
@@ -237,7 +237,7 @@ test.describe('Оформление заказа', () => {
     await assembleBurger(page);
     await page.getByRole('button', { name: 'Оформить заказ', exact: true }).click();
     await expect(page.getByRole('alert')).toHaveText('Не удалось оформить заказ');
-    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(page.getByTestId('modal')).toHaveCount(0);
     await expect(page.getByTestId('constructor-bun-1')).toContainText(bunName);
     await expect(page.getByTestId('constructor-bun-2')).toContainText(bunName);
     await expect(

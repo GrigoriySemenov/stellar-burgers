@@ -1,7 +1,5 @@
-import ingredientsReducer, { fetchIngredients } from '../ingredients';
+import ingredientsReducer, { fetchIngredients, initialState } from '../ingredients';
 import { bun, filling, sauce } from './fixtures';
-
-const initialState = { items: [], isLoading: false, error: null };
 
 describe('Редьюсер ingredients', () => {
   test('возвращает начальное состояние для undefined и неизвестного экшена', () => {

@@ -7,6 +7,7 @@ const config: Config = {
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'html', 'lcov'],
   coverageThreshold: {
+    global: {},
     './src/services/slices/ingredients.ts': {
       statements: 100,
       branches: 100,

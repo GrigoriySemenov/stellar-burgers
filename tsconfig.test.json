@@ -5,6 +5,11 @@
     "types": ["jest", "@testing-library/jest-dom/jest-globals", "vite/client"],
     "esModuleInterop": true
   },
-  "include": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.d.ts"],
+  "include": [
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.d.ts",
+    "jest.config.ts"
+  ],
   "exclude": []
 }
